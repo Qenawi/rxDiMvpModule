@@ -17,6 +17,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import users.app.dummyx.qenawi.data.remote.ApiService;
+import users.app.dummyx.qenawi.usecase.loginUC.LoginUsecase;
+import users.app.dummyx.qenawi.usecase.loginUC.LoginUsecaseImp;
 
 import static users.app.dummyx.qenawi.utils.Constants.BASE_URL;
 
@@ -31,7 +33,22 @@ public class NetModule {
     private Retrofit retrofitInistace;
 
     //--todo------------->>>>>>>>>>>>>>>>Provide Use cases
+    @Singleton
+    @Provides
+    LoginUsecase providesLoginUsecase() {
+        return new LoginUsecaseImp(providesApiService());
+    }
 
+
+    @Provides
+    @Singleton
+    ApiService providesApiService()
+    {
+        if (apiService == null) {
+            apiService = provideRetrofit().create(ApiService.class);
+        }
+        return apiService;
+    }//apiservice
 
     @Provides
     @Singleton

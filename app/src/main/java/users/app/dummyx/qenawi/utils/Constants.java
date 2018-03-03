@@ -9,9 +9,8 @@ public class Constants {
     public static final String WEOVIEWTITLEKEY = "Zoro";
     public static int SPLASH_DELAY = 3000;
     public static int ERROR_UNDEFINED = -1;
-    public static String BASE_URL = "BASEURL";
+    public static String BASE_URL = "https://www.google.com.eg/";
 
-    public static String NEWS_ITEM_KEY = "NEWS_ITEM_KEY";
     public static final int SUCCESS_CODE = 200;
     public static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 101;
     public static final float DEFAULT_ZOOM = 15;
