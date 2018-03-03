@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorssplashGreen">#2CBE45</color>
+    <color name="graylightbg">#f5f5f5</color>
+    <color name="graylighttxt">#9e9d9d</color>
+
+    <color name="neworder">@color/colorAccent</color>
+    <color name="inprogresscheck">@android:color/holo_orange_light</color>
+    <color name="done">@android:color/darker_gray</color>
+    <color name="inprogresscwork">#2CBE45</color>
+
+    <color name="newordershadow">#beff4081</color>
+    <color name="inprogresscheckshadow">#c8ffbb33</color>
+    <color name="doneshadow">#c8aaaaaa</color>
+    <color name="inprogresscworkshadow">#c82cbe45</color>
+</resources>

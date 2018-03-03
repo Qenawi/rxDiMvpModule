@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "users.app.dummyx.qenawi"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.google.firebase:firebase-crash:11.8.0'
+    testImplementation 'junit:junit:4.12'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //noinspection GradleDependency
+    compile 'io.reactivex.rxjava2:rxjava:2.0.8'
+    //noinspection GradleDependency
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:support-v4:26.1.0'
+    compile 'com.android.support:support-core-utils:26.1.0'
+    //retrofit 2.3.0>
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    //retrofit 2.3.0<
+    // dagger 2.11 >
+    //noinspection GradleDependency
+    compile 'com.google.dagger:dagger:2.11'
+    //noinspection GradleDependency
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+    //noinspection GradleDependency
+    compile 'com.google.dagger:dagger-android:2.11'
+    //noinspection GradleDependency
+    compile 'com.google.dagger:dagger-android-support:2.11'
+    //noinspection GradleDependency
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+    //  dagger 2.11 <
+    // ok http3  3.4.1>
+    //noinspection GradleDependency
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    //noinspection GradleDependency
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    //ok http3 3.4.1<
+    //butterknife
+    //noinspection GradleDependency
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    // view pager header 1.6.1@aa ->
+    compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+    //  shadow layOut -><><><><><->
+    compile 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
+    compile 'com.github.omadahealth:swipy:1.2.3@aar'
+    //circle image view
+    compile 'de.hdodenhof:circleimageview:2.2.0'
+    // google play services  11.8.0
+    //noinspection UseOfBundledGooglePlayServices
+    compile 'com.google.android.gms:play-services-maps:11.8.0'
+    compile 'com.google.android.gms:play-services-location:11.8.0'
+    //rx location
+    compile 'com.patloew.rxlocation:rxlocation:1.0.4'
+    //------------>-------------------
+    compile 'com.android.support:multidex:1.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+apply plugin: 'com.google.gms.google-services'

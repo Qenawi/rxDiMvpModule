@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "439364267010",
+    "firebase_url": "https://rxdimvpmodule.firebaseio.com",
+    "project_id": "rxdimvpmodule",
+    "storage_bucket": "rxdimvpmodule.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439364267010:android:027a6aeb48c9ee1b",
+        "android_client_info": {
+          "package_name": "users.app.dummyx.qenawi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439364267010-66t4b4q76vo04anef5v3c51n5s4o4mh7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "users.app.dummyx.qenawi",
+            "certificate_hash": "63857a52fa6d5087d2d355246774c40e32fa2016"
+          }
+        },
+        {
+          "client_id": "439364267010-gsr814dp8irdqi1ceolijf5jbh0hir7f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt9XUafFGqS_D5FSeDE52OJhYPKgt9z_Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439364267010-gsr814dp8irdqi1ceolijf5jbh0hir7f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
