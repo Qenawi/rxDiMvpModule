@@ -1,8 +1,12 @@
 package users.app.dummyx.qenawi.presentation.login;
 
+import javax.inject.Inject;
+
 import io.reactivex.Scheduler;
 import io.reactivex.observers.DisposableObserver;
 import users.app.dummyx.qenawi.data.remote.model.LoginResponse;
+import users.app.dummyx.qenawi.injection.RunOn;
+import users.app.dummyx.qenawi.injection.SchedulerType;
 import users.app.dummyx.qenawi.presentation.base.BasePresenter;
 import users.app.dummyx.qenawi.usecase.loginUC.LoginUsecase;
 
@@ -16,7 +20,8 @@ public class loginPresenter extends BasePresenter<Logincontract.LoginView> imple
     private LoginResponse loginResponse;
     private LoginUsecase loginUsecase;
 
-    public loginPresenter(Scheduler mainScheduler, Scheduler ioScheduler, LoginUsecase loginUsecase)
+    @Inject
+    public loginPresenter(@RunOn(SchedulerType.IO) Scheduler ioScheduler, @RunOn(SchedulerType.UI) Scheduler mainScheduler ,  LoginUsecase loginUsecase)
     {
         this.mainScheduler = mainScheduler; // return result on which thread
         this.ioScheduler = ioScheduler;  // do operation on which thread

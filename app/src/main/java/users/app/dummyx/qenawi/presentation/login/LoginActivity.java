@@ -22,6 +22,8 @@ import users.app.dummyx.qenawi.utils.typefaceitemstext;
 public class LoginActivity extends BaseActivity implements Logincontract.LoginView {
     @Inject
     LoginUsecase loginusecase;
+
+    @Inject
     loginPresenter presenter;
 
     @BindView(R.id.my_awesome_rl)
@@ -41,7 +43,6 @@ public class LoginActivity extends BaseActivity implements Logincontract.LoginVi
     @Override
     protected void initializePresenter()
     {
-        presenter = new loginPresenter(AndroidSchedulers.mainThread(), Schedulers.io(), loginusecase);
         presenter.attachView(this);
     }
     @Override
