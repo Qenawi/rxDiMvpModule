@@ -33,27 +33,15 @@ public class LoginUsecaseImp implements LoginUsecase {
         create a fresh observable on each subscription.
          */
         if (NetworkUtils.isConnected(App.getContext())) {
-            return Observable.defer(new Callable<ObservableSource<? extends LoginResponse>>() {
-                @Override
-                public ObservableSource<? extends LoginResponse> call() throws Exception {
-                    return apiService.login(name_phone, pass);
+            return Observable.defer(() -> apiService.login(name_phone, pass).toObservable()).
+                    retryWhen(throwableObservable -> throwableObservable.flatMap(throwable -> {
+                if (throwable instanceof IOException) {
+                    Observable.error(new Throwable(SERVER_ERROR));
                 }
-            }).retryWhen(new Function<Observable<Throwable>, ObservableSource<?>>() {
-                @Override
-                public ObservableSource<?> apply(Observable<Throwable> throwableObservable) throws Exception {
-                    return throwableObservable.flatMap(new Function<Throwable, ObservableSource<?>>() {
-                                                           @Override
-                                                           public ObservableSource<?> apply(Throwable throwable) throws Exception {
-                                                               if (throwable instanceof IOException) {
-                                                                   Observable.error(new Throwable(SERVER_ERROR));
-                                                               }
-                                                               return Observable.error(throwable);
-                                                           }
-                                                       }
+                return Observable.error(throwable);
+            }
 
-                    );
-                }
-            });
+            ));
         } else {
             return Observable.error(new Throwable(INTERNET_CONNECTION_ERROR));
         }

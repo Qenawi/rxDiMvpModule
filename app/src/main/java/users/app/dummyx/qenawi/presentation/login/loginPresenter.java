@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Scheduler;
 import io.reactivex.observers.DisposableObserver;
+import io.reactivex.observers.DisposableSingleObserver;
 import users.app.dummyx.qenawi.data.remote.model.LoginResponse;
 import users.app.dummyx.qenawi.injection.RunOn;
 import users.app.dummyx.qenawi.injection.SchedulerType;
@@ -30,33 +31,24 @@ public class loginPresenter extends BasePresenter<Logincontract.LoginView> imple
 
 
     @Override
-    public void Login(String name_phone, String pass)
-    {
+    public void Login(String name_phone, String pass) {
         checkViewAttached();
         getView().showLoading();
 
+        addDisposable(loginUsecase.Login(name_phone , pass).subscribeOn(ioScheduler).
+                observeOn(mainScheduler).subscribe(this::loginSuccess , this::loginError));
 
-        addDisposable(loginUsecase.Login(name_phone, pass)
-                .subscribeOn(ioScheduler).observeOn(mainScheduler).subscribeWith(new DisposableObserver<LoginResponse>()
-                {
-                    @Override
-                    public void onNext(LoginResponse loginResponse) {
-                        loginPresenter.this.loginResponse = loginResponse;
-                        getView().showLoginSuccess(loginResponse);
-                        //    getView().hideLoading();
-                    }
+    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        getView().showError(e.getMessage());
-                        getView().hideLoading();
-                    }
+    private void loginSuccess(LoginResponse loginResponse) {
+        loginPresenter.this.loginResponse = loginResponse;
+        getView().showLoginSuccess(loginResponse);
+        //    getView().hideLoading();
+    }
 
-                    @Override
-                    public void onComplete()
-                    {
+    private void loginError(Throwable e) {
+        getView().showError(e.getMessage());
+        getView().hideLoading();
+    }
 
-                    }
-                }));//add disposaple
-    }//login
 }
