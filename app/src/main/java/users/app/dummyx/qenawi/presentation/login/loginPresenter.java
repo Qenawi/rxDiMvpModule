@@ -1,8 +1,13 @@
 package users.app.dummyx.qenawi.presentation.login;
 
+import javax.inject.Inject;
+
 import io.reactivex.Scheduler;
 import io.reactivex.observers.DisposableObserver;
+import io.reactivex.observers.DisposableSingleObserver;
 import users.app.dummyx.qenawi.data.remote.model.LoginResponse;
+import users.app.dummyx.qenawi.injection.RunOn;
+import users.app.dummyx.qenawi.injection.SchedulerType;
 import users.app.dummyx.qenawi.presentation.base.BasePresenter;
 import users.app.dummyx.qenawi.usecase.loginUC.LoginUsecase;
 
@@ -16,7 +21,8 @@ public class loginPresenter extends BasePresenter<Logincontract.LoginView> imple
     private LoginResponse loginResponse;
     private LoginUsecase loginUsecase;
 
-    public loginPresenter(Scheduler mainScheduler, Scheduler ioScheduler, LoginUsecase loginUsecase)
+    @Inject
+    public loginPresenter(@RunOn(SchedulerType.IO) Scheduler ioScheduler, @RunOn(SchedulerType.UI) Scheduler mainScheduler ,  LoginUsecase loginUsecase)
     {
         this.mainScheduler = mainScheduler; // return result on which thread
         this.ioScheduler = ioScheduler;  // do operation on which thread
@@ -25,33 +31,24 @@ public class loginPresenter extends BasePresenter<Logincontract.LoginView> imple
 
 
     @Override
-    public void Login(String name_phone, String pass)
-    {
+    public void Login(String name_phone, String pass) {
         checkViewAttached();
         getView().showLoading();
 
+        addDisposable(loginUsecase.Login(name_phone , pass).subscribeOn(ioScheduler).
+                observeOn(mainScheduler).subscribe(this::loginSuccess , this::loginError));
 
-        addDisposable(loginUsecase.Login(name_phone, pass)
-                .subscribeOn(ioScheduler).observeOn(mainScheduler).subscribeWith(new DisposableObserver<LoginResponse>()
-                {
-                    @Override
-                    public void onNext(LoginResponse loginResponse) {
-                        loginPresenter.this.loginResponse = loginResponse;
-                        getView().showLoginSuccess(loginResponse);
-                        //    getView().hideLoading();
-                    }
+    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        getView().showError(e.getMessage());
-                        getView().hideLoading();
-                    }
+    private void loginSuccess(LoginResponse loginResponse) {
+        loginPresenter.this.loginResponse = loginResponse;
+        getView().showLoginSuccess(loginResponse);
+        //    getView().hideLoading();
+    }
 
-                    @Override
-                    public void onComplete()
-                    {
+    private void loginError(Throwable e) {
+        getView().showError(e.getMessage());
+        getView().hideLoading();
+    }
 
-                    }
-                }));//add disposaple
-    }//login
 }
